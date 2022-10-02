@@ -1,48 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="fonts.css" />
+    <link rel="stylesheet" href="style.css" />
     <title>Pokedex</title>
-    <script>
-
-        let currentPokemon;
-
-        async function loadPokemon(){
-            let url = 'https://pokeapi.co/api/v2/pokemon/charmander';
-            let response = await fetch(url);
-            currentPokemon = await response.json();
-            console.log('Loaded Pokemon',currentPokemon);
-
-            renderPokemonInfo();
-        }
-
-        function renderPokemonInfo(){
-            document.getElementById('pokemonName').innerHTML = currentPokemon['name'];
-            document.getElementById('imgPokemon').innerHTML =`<img src="${currentPokemon['sprites']['front_default']}">`;
-        }
-    </script>
-    <style>
-        body{
-            margin: 0;
-        }
-
-        #pokedex{
-            min-height: 50vh;
-            background-color: rgb(177, 28, 28);
-            color: white;
-        }
-    </style>
-</head>
-<body onload="loadPokemon()">
-
-    <div id="pokedex">
-        <h1 id="pokemonName">Name</h1>
-        <div id="imgPokemon">
-
+    <script src="script.js"></script>
+  </head>
+  <body onload="loadPokemon()">
+    <div class="container-pokedex">
+      <div id="pokedex">
+        <div class="container-stats">
+          <h1 id="pokemonName">Name</h1>
+          <span id="pokemonNumber"></span>
+          <span class="type" id="type-1"></span>
+          <span id="height"></span>
+          <span id="weight"></span>
         </div>
+        <img id="imgPokemon" class="img-pokemon" />
+      </div>
+      <div class="info-container text-bold">
+        <div class="stats-alignment">
+          <span>hp</span>
+          <div class="container-skillbar">
+            <div id="hp" class="skills"></div>
+          </div>
+        </div> <div class="stats-alignment">
+            <span>attack</span>
+            <div class="container-skillbar">
+              <div id="attack" class="skills"></div>
+            </div>
+          </div>
+          <div class="stats-alignment">
+            <span>defense</span>
+            <div class="container-skillbar">
+              <div id="defense" class="skills"></div>
+            </div>
+          </div>
+          <div class="stats-alignment">
+            <span>special-attack</span>
+            <div class="container-skillbar">
+              <div id="special-attack" class="skills"></div>
+            </div>
+          </div>
+          <div class="stats-alignment">
+            <span>special-defense</span>
+            <div class="container-skillbar">
+              <div id="special-defense" class="skills"></div>
+            </div>
+          </div>
+          <div class="stats-alignment">
+            <span>speed</span>
+            <div class="container-skillbar">
+              <div id="speed" class="skills"></div>
+            </div>
+          </div>
+
+      </div>
     </div>
-    
-</body>
+  </body>
 </html>
