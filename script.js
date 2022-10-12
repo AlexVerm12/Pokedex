@@ -18,13 +18,19 @@ async function loadNextPokemonList() {
     renderAllPokemon();
 }
 
-window.onscroll = function (ev) {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        console.log('Hallo');
-        loadNextPokemonList();
-        
+//Funktion um festzustellen ob der nutzer nach unten gescrolled hat. wenn ja werden die nächsten 20 Pokemon geladen.
+let isLoading = false;
+window.onscroll = async function (ev) {
+    if (reachedBottomPage() && !isLoading) {
+        isLoading = true;
+       await loadNextPokemonList();
+        isLoading = false;
 
     }
+}
+
+function reachedBottomPage(){
+    return (window.innerHeight + window.scrollY) >= document.body.offsetHeight*0.9;
 }
 
 function renderAllPokemon() {
@@ -61,9 +67,11 @@ function showPokedex(i) {
     renderPokemonInfo(i);
 }
 
-function closePokedex() {
+function closePokedex(i) {
     document.getElementById('showPokedex').classList.add('d-none');
     document.getElementById('body').classList.remove('hidden');
+    type = allPokemon[i]['types']['0']['type']['name'];
+    document.getElementById(`pokedex`).classList.remove(type);
 }
 
 function notClose(event) {
@@ -79,8 +87,7 @@ function renderTypes(i) {
 
 
 function renderPokemonInfo(i) {
-    let type = allPokemon[i]['types']['0']['type']['name'];
-    document.getElementById(`pokedex`).classList.remove(type);
+    type = allPokemon[i]['types']['0']['type']['name'];
     document.getElementById(`pokedex`).classList.add(type);
     document.getElementById('pokemonName').innerHTML = allPokemon[i]['name'].toUpperCase();
     document.getElementById('imgPokemon').src = allPokemon[i]['sprites']['other']['home']['front_default'];
